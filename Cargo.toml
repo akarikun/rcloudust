@@ -1,0 +1,15 @@
+[package]
+name = "rcloudust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rust-embed = "8.2.0"
+salvo = { version = "0.63.1", features=["serve-static"] }
+tokio = { version = "1", features = ["macros"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+serde = "1.0"
+serde_json = "1.0"
