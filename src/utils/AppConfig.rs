@@ -7,6 +7,7 @@ pub struct AppConfig {
     pub connection: String,
     pub sql_type: i32, //0:sqlite
     pub port: i32,
+    pub domain: String,
 }
 
 impl AppConfig {
@@ -18,11 +19,12 @@ impl AppConfig {
             return serde_json::from_str(&contents);
         }
         let cfg = AppConfig {
-            connection:"".to_string(),
+            connection: "".to_string(),
             sql_type: 0,
             port: 12002,
+            domain: "127.0.0.1:12002".to_string(),
         };
-        Self::set_config(file_path,&cfg);
+        Self::set_config(file_path, &cfg);
         Ok(cfg)
     }
     fn set_config(file_path: &str, config: &AppConfig) -> Result<(), serde_json::Error> {

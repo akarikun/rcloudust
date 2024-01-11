@@ -1,0 +1,18 @@
+{
+  "cwd": "/opt/project/rcloudust/f7",
+  "type": [
+    "web"
+  ],
+  "name": "rcloudust",
+  "framework": "vue",
+  "template": "split-view",
+  "cssPreProcessor": "less",
+  "bundler": "vite",
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkMode": false,
+    "iconFonts": true
+  },
+  "customBuild": false
+}
