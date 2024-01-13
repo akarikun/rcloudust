@@ -5,19 +5,19 @@
       <f7-nav-left>
         <f7-link icon-ios="f7:menu" icon-md="material:menu" panel-open="left"></f7-link>
       </f7-nav-left>
-      <f7-nav-title sliding>rcloudust</f7-nav-title>
-      <f7-nav-right>
+      <f7-nav-title sliding>主页</f7-nav-title>
+      <!-- <f7-nav-right>
         <f7-link icon-ios="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
-      </f7-nav-right>
-      <f7-nav-title-large>rcloudust</f7-nav-title-large>
+      </f7-nav-right> -->
+      <f7-nav-title-large>主页</f7-nav-title-large>
     </f7-navbar>
     <!-- Toolbar-->
-    <f7-toolbar bottom>
+    <!-- <f7-toolbar bottom>
       <f7-link>Left Link</f7-link>
       <f7-link>Right Link</f7-link>
-    </f7-toolbar>
+    </f7-toolbar> -->
     <!-- Page content-->
-    <f7-block>
+    <!-- <f7-block>
       <p>This is an example of split view application layout, commonly used on tablets. The main approach of such kind of layout is that you can see different views at the same time.</p>
 
       <p>Each view may have different layout, different navbar type (dynamic, fixed or static) or without navbar.</p>
@@ -55,6 +55,6 @@
         title="Request Data & Load"
         link="/request-and-load/user/123456/"
       ></f7-list-item>
-    </f7-list>
+    </f7-list> -->
   </f7-page>
 </template>

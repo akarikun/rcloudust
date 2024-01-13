@@ -1,5 +1,8 @@
 
 import HomePage from '../pages/home.vue';
+import FilesPage from '../pages/files.vue';
+import SharePage from '../pages/share.vue';
+
 import AboutPage from '../pages/about.vue';
 import FormPage from '../pages/form.vue';
 
@@ -13,6 +16,18 @@ var routes = [
   {
     path: '/',
     component: HomePage,
+  },
+  {
+    path:'/files/',
+    component: FilesPage,
+  },
+  {
+    path:'/files/:guid/',
+    component: FilesPage,
+  },
+  {
+    path:'/share/',
+    component: SharePage,
   },
   {
     path: '/about/',

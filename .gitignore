@@ -5,3 +5,5 @@ config.json
 node_modules
 f7/www
 files/
+package-lock.json
+www
