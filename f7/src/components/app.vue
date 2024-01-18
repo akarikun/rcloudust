@@ -17,7 +17,7 @@
             <f7-list-item link="/form/" view=".view-main" panel-close title="Form"></f7-list-item>
             <f7-list-item link="#" view=".view-main" back panel-close title="Back in history"></f7-list-item> -->
             <f7-list-item link="/" view=".view-main" title="主页"></f7-list-item>
-            <f7-list-item link="/files/" view=".view-main" title="文件"></f7-list-item>
+            <f7-list-item link="/file-list/" view=".view-main" title="文件"></f7-list-item>
             <f7-list-item link="/share/" view=".view-main" title="分享"></f7-list-item>
           </f7-list>
         </f7-page>

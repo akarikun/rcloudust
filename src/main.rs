@@ -5,7 +5,7 @@ use salvo::serve_static::StaticDir;
 use salvo::{prelude::*, serve_static::static_embed};
 mod models;
 mod utils;
-use models::*;
+use models::accounts::*;
 use utils::AppConfig::*;
 
 #[derive(RustEmbed)]
@@ -31,6 +31,7 @@ async fn main() {
         // .push(Router::with_path("/set_cookie").get(login))
         // .push(Router::with_path("/get_cookie").get(api_list))
         .push(Router::with_path("/api/<**path>").post(api_list))
+        .push(Router::with_path("/404").post(page_404))
         //将www目录中的资源嵌入到可执行文件中
         .push(Router::with_path("<**path>").get(static_embed::<Assets>().fallback("index.html")));
 
@@ -56,17 +57,29 @@ async fn api_list(
 
 #[handler]
 async fn login(_req: &mut Request, _depot: &mut Depot, res: &mut Response, _ctrl: &mut FlowCtrl) {
-    let uri = _req.uri();
-    let host = uri.host().unwrap();
-    println!("\t\t\t\t{:#?},{:?},{:?}", uri, host, uri.path());
+    let host = _req.uri().host().unwrap().to_string();
+    if let Ok(ref data) = _req.parse_json::<AccountsModelInput>().await {
+        let json = serde_json::to_string_pretty(data).unwrap();
+        let cookie: Cookie = Cookie::build(("name", json))
+            .domain(host)
+            .path("/")
+            .secure(true)
+            .http_only(true)
+            .max_age(Duration::days(30))
+            .build();
+        res.add_cookie(cookie);
+    } else {
+        res.render(Redirect::other("/404"));
+    }
+}
 
-    // let cookie: Cookie = Cookie::build(("name", "value"))
-    //     .domain(host.to_string())
-    //     .path("/")
-    //     .secure(true)
-    //     .http_only(true)
-    //     .max_age(Duration::days(30))
-    //     .build();
-    // res.add_cookie(cookie);
-    res.render(Redirect::other("/get_cookie"));
+#[handler]
+async fn page_404(
+    _req: &mut Request,
+    _depot: &mut Depot,
+    res: &mut Response,
+    _ctrl: &mut FlowCtrl,
+) {
+    res.status_code(StatusCode::NOT_FOUND);
+    res.render("404");
 }
