@@ -1,11 +1,12 @@
 use cookie::time::Duration;
 use cookie::Cookie;
+use models::TModel::TModel;
 use rust_embed::RustEmbed;
 use salvo::serve_static::StaticDir;
 use salvo::{prelude::*, serve_static::static_embed};
 mod models;
 mod utils;
-use models::accounts::*;
+use models::accounts::{self, *};
 use utils::AppConfig::*;
 
 #[derive(RustEmbed)]
@@ -58,16 +59,22 @@ async fn api_list(
 #[handler]
 async fn login(_req: &mut Request, _depot: &mut Depot, res: &mut Response, _ctrl: &mut FlowCtrl) {
     let host = _req.uri().host().unwrap().to_string();
-    if let Ok(ref data) = _req.parse_json::<AccountsModelInput>().await {
-        let json = serde_json::to_string_pretty(data).unwrap();
-        let cookie: Cookie = Cookie::build(("name", json))
-            .domain(host)
-            .path("/")
-            .secure(true)
-            .http_only(true)
-            .max_age(Duration::days(30))
-            .build();
-        res.add_cookie(cookie);
+    if let Ok(ref mut data) = _req.parse_json::<AccountsModelInput>().await {
+        if let Ok(models) = accounts::AccountsModel::get_model(data) {
+            // println!("{:?}", res);
+            let json = serde_json::to_string_pretty(&models).unwrap();
+            let cookie: Cookie = Cookie::build(("name", json))
+                .domain(host)
+                .path("/")
+                .secure(true)
+                .http_only(true)
+                .max_age(Duration::days(30))
+                .build();
+            res.add_cookie(cookie);
+        } else {
+            println!("else");
+        }
+
     } else {
         res.render(Redirect::other("/404"));
     }

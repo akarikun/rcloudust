@@ -27,19 +27,45 @@ mod tests {
         ",
             [],
         )?;
-        println!("{:?}",res);
+        println!("{:?}", res);
         Ok(())
     }
 
     #[test]
     fn test1() {
-        if let Ok(res) = accounts::AccountsModel::get_model(AccountsModelInput {
+        let mut model = AccountsModelInput {
             name: "admin".to_string(),
             pwd: "123456".to_string(),
-        }) {
+            id: None,
+        };
+        if let Ok(res) = accounts::AccountsModel::get_model(&mut model) {
             println!("{:#?}", res);
         } else {
             println!("empty...");
+        }
+    }
+    #[test]
+    fn test2() {
+        let mut model = AccountsModelInput {
+            name: "admin".to_string(),
+            pwd: "".to_string(),
+            id: None,
+        };
+        if let Ok(res) = accounts::AccountsModel::exists_user(&mut model) {
+            println!("{:#?}", res);
+        } else {
+            println!("empty...");
+        }
+    }
+    #[test]
+    fn test3() {
+        let mut model = AccountsModelInput {
+            name: "admin".to_string(),
+            pwd: "123456".to_string(),
+            id: None
+        };
+        if let Ok(res) = accounts::AccountsModel::insert(&mut model) {
+            println!("{:?}", res);
         }
     }
 }
