@@ -6,8 +6,7 @@ use std::io::{Read, Write};
 pub struct AppConfig {
     pub connection: String,
     pub sql_type: i32, //0:sqlite
-    pub port: i32,
-    pub domain: String,
+    pub host: String,
 }
 
 impl AppConfig {
@@ -21,8 +20,7 @@ impl AppConfig {
         let cfg = AppConfig {
             connection: "".to_string(),
             sql_type: 0,
-            port: 12002,
-            domain: "127.0.0.1:12002".to_string(),
+            host: "127.0.0.1:12002".to_string(),
         };
         Self::set_config(file_path, &cfg);
         Ok(cfg)

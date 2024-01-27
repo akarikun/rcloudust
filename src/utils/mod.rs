@@ -1,2 +1,3 @@
 pub mod AppConfig;
-pub mod db;
+pub mod common;
+pub mod JsonResp;
